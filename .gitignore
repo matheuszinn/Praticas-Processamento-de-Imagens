@@ -1,7 +1,7 @@
-node_modules
+# Impede que sejam adicionados arquivos do tipo .pyc
+__pycache__/
 
-__pychache__/
-
+# Impede que sejam adicionados arquivos referentes a configuração do virtual environment, e os módulos baixados
 .env
 .venv
 env/
