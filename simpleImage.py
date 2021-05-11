@@ -1,15 +1,5 @@
-from os import terminal_size
 from PIL import Image
 import numpy as np
-from numpy.lib.npyio import save 
-
-def get_blank() -> list:
-    return [(0,0,0,255) for _ in range(1024)]
-
-def set_grayscale(values:tuple) -> list:
-    mean = (sum(values) - values[3]) // 3
-    return [mean, mean, mean, values[3]]
-
 
 class SimpleImage:
 
@@ -20,10 +10,14 @@ class SimpleImage:
         self.data = np.asarray(self.image)
         self.width = self.image.width
         self.heigth = self.image.height
-        self.size = self.image.size
         self.save_file = save_file
 
     def in_grayscale(self) -> None:
+
+        def set_grayscale(values:tuple) -> list:
+            mean = (sum(values) - values[3]) // 3
+            return [mean, mean, mean, values[3]]
+
         temp = []
         for rows in self.data:
             column_list = []
@@ -57,7 +51,7 @@ class SimpleImage:
                 row.append(self.pixel_data[x,y])
                 row.append(self.pixel_data[x,y])
             imgList.append(row)
-            imgList.append(get_blank())
+            imgList.append(row)
 
         data = np.array(imgList, dtype=np.uint8)
         newImage = Image.fromarray(data)
@@ -66,3 +60,9 @@ class SimpleImage:
         if self.save_file:
             newImage.save(f'Ampliação_{self.imgPath}')
             
+    def interpolacoa_bilinear_reducao(self) -> None:
+        #TODO: Sendo implementado agora 
+        pass
+
+    def interpolacao_bilinear_ampliacao(self) -> None:
+        pass

@@ -3,9 +3,7 @@ from PyInquirer.separator import Separator
 from numpy.lib.npyio import save
 from simpleImage import SimpleImage
 
-
-if __name__ == "__main__":
-    questions = [
+questions = [
     {
         'type': 'list',
         'name': 'InterpolationAlgo',
@@ -34,12 +32,14 @@ if __name__ == "__main__":
     }
 ]
 
-results = prompt(questions)
 
-image = SimpleImage('amogus.png', save_file=results['save'])
+if __name__ == "__main__":
+    results = prompt(questions)
 
-if 'Transformar para grayscale!' in results.values():
-    print(image.data.shape)
-    image.in_grayscale()
-else:
-    image.interpolacao_vizinhos_ampliacao()
+    image = SimpleImage('amogus.png', save_file=results['save'])
+
+    if 'Transformar para grayscale!' in results.values():
+        print(image.data.shape)
+        image.in_grayscale()
+    else:
+        image.interpolacao_vizinhos_ampliacao()
