@@ -1,3 +1,4 @@
+from methodhandler import MethodHandler
 from PyInquirer import prompt
 from PyInquirer.separator import Separator
 from numpy.lib.npyio import save
@@ -6,24 +7,33 @@ from simpleImage import SimpleImage
 questions = [
     {
         'type': 'list',
-        'name': 'InterpolationAlgo',
-        'message': 'Por qual método você deseja realizar a interpolação?',
+        'name': 'operation',
+        'message': 'O que deseja fazer com a imagem ?',
         'choices': [
-            'Interpolação por vizinho mais próximo',
-            'Interpolação bilinear',
+            'Interpolação',
             Separator(),
-            'Transformar para grayscale!'
+            'Transformar em cinza'
         ]
     },
     {
         'type': 'list',
-        'name': 'InterpolationType',
+        'name': 'interpolationAlgo',
+        'message': 'Por qual método você deseja realizar a interpolação?',
+        'choices': [
+            'Vizinho mais próximo',
+            'Bilinear',
+        ],
+        'when' : lambda x : x['operation'] == 'Interpolação'
+    },
+    {
+        'type': 'list',
+        'name': 'interpolationType',
         'message': 'Escolha o tipo de interpolação: ',
         'choices': [
             'Ampliação',
             'Redução'
         ],
-        'when': lambda ans: ans['InterpolationAlgo'] != 'Transformar para grayscale!'
+        'when': lambda ans: 'Interpolação' in ans.values()
     },
     {
         'type': 'confirm',
@@ -36,10 +46,14 @@ questions = [
 if __name__ == "__main__":
     results = prompt(questions)
 
-    image = SimpleImage('amogus.png', save_file=results['save'])
+    image = SimpleImage('amogus.png', save_f=results['save'])
+    handler = MethodHandler(image)
 
-    if 'Transformar para grayscale!' in results.values():
-        print(image.data.shape)
-        image.in_grayscale()
-    else:
-        image.interpolacao_vizinhos_ampliacao()
+    if 'Transformar em cinza' in results.values():
+        handler.metodos[results['operation']]()
+    else: 
+        handler.execute(
+            results['operation'],
+            results['interpolationAlgo'],
+            results['interpolationType']
+            )
