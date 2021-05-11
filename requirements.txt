@@ -1,0 +1,2 @@
+pyinquirer==1.0.3
+Pillow>=8.2.0
