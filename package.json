@@ -1,0 +1,23 @@
+{
+  "name": "praticasprocessamentodeimagens",
+  "version": "1.0.0",
+  "description": "Implementação das atividades práticas da disciplina de Processamento de Imagens",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Matheuszinn/Atividade-Praticas-Processamento-de-Imagens.git"
+  },
+  "contributors": [
+    "Matheuszinn",
+    "Thaís"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "image-js": "^0.31.4",
+    "inquirer": "^8.0.0"
+  }
+}
