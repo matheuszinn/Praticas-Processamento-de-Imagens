@@ -25,9 +25,9 @@ Está sendo feito em python, usando as libs que estão em ```requirements.txt```
 
 ### Coisas para ser implementadas
 
-- [ ] Interpolação
+- [X] Interpolação
   - [X] Por vizinhos próximos (Aumento e diminuição)
-  - [ ] Bilinear (Aumento e diminuição)
+  - [X] Bilinear (Aumento e diminuição)
 - [ ] Duas operações aritméticas:
   - Adição
   - Subtração
