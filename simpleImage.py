@@ -18,7 +18,7 @@ class SimpleImage:
 
     def in_grayscale(self) -> None:
 
-        def set_grayscale(values:tuple) -> list:
+        def set_grayscale(values: tuple) -> list:
             mean = (sum(values) - values[3]) // 3
             return [mean, mean, mean, values[3]]
 
@@ -60,29 +60,30 @@ class SimpleImage:
         newImage = Image.fromarray(data)
         newImage.show()
         self.save_file('VizinhosAmpliação', newImage)
-            
-    def interpolacao_bilinear_reducao(self) -> None:
 
-        def calcular_rgb_media(*val: tuple) -> list:
+    def calcular_rgb_media(self, *val: tuple) -> list:
             r,g,b,a = 0,0,0,0
             for pixel in val:
                 r += pixel[0]
                 g += pixel[1]
                 b += pixel[2]
                 a += pixel[3]
+            
+            return [i//len(val) for i in [r,g,b,a]]
 
-            return [i//4 for i in [r,g,b,a]]
+    def interpolacao_bilinear_reducao(self) -> None:
 
         imgList = []
         for y in range(0, self.width - 1,2):
             row = []
             for x in range(0, self.heigth - 1, 2):
-                row.append(calcular_rgb_media(
+                row.append(self.calcular_rgb_media(
                     self.pixel_data[x,y],
                     self.pixel_data[x,y+1],
                     self.pixel_data[x+1,y],
                     self.pixel_data[x+1,y+1]
                 ))
+            
             imgList.append(row)
         data = np.array(imgList, dtype=np.uint8)
         newImage = Image.fromarray(data)
@@ -90,4 +91,42 @@ class SimpleImage:
         self.save_file('BilinearRedução', newImage)
 
     def interpolacao_bilinear_ampliacao(self) -> None:
-        pass
+
+        imgList = []
+        for y in range(self.width):
+            row = []
+            middleRow=[]
+            for x in range(self.heigth):
+                if x == self.width-1 or y == self.heigth-1:
+                    row.append(self.pixel_data[x, y])
+                    row.append(self.pixel_data[x, y])
+                    
+                    middleRow.append(self.pixel_data[x,y])
+                    middleRow.append(self.pixel_data[x,y])
+
+                else:
+                    row.append(self.pixel_data[x, y])
+                    row.append(self.calcular_rgb_media( 
+                        self.pixel_data[x, y],
+                        self.pixel_data[x, y+1]
+                    ))
+
+                    middleRow.append(self.calcular_rgb_media(
+                        self.pixel_data[x,y],
+                        self.pixel_data[x+1, y]
+                    ))
+
+                    middleRow.append(self.calcular_rgb_media(
+                        self.pixel_data[x, y],
+                        self.pixel_data[x, y+1],
+                        self.pixel_data[x+1,y+1],
+                        self.pixel_data[x+1, y]
+                    ))
+
+            imgList.append(row)
+            imgList.append(middleRow)
+
+        data = np.array(imgList, dtype=np.uint8)
+        newImage = Image.fromarray(data)
+        newImage.show()
+        self.save_file('BilinearAmpliação', newImage)
