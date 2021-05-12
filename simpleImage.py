@@ -1,6 +1,5 @@
 from PIL import Image
 import numpy as np
-from numpy.lib.type_check import imag
 
 class SimpleImage:
 
@@ -37,9 +36,9 @@ class SimpleImage:
 
     def interpolacao_vizinhos_reducao(self) -> None:
         imgList = []
-        for y in range(0, self.width-1,2):
+        for y in range(0, self.heigth-1,2):
             row = []
-            for x in range(0, self.heigth-1,2):
+            for x in range(0, self.width-1,2):
                 row.append(self.pixel_data[x,y])
             imgList.append(row)
         data = np.array(imgList, dtype=np.uint8)
@@ -49,9 +48,9 @@ class SimpleImage:
 
     def interpolacao_vizinhos_ampliacao(self) -> None:
         imgList = []
-        for y in range(self.width):
+        for y in range(self.heigth):
             row = []
-            for x in range(self.heigth):
+            for x in range(self.width):
                 row.append(self.pixel_data[x,y])
                 row.append(self.pixel_data[x,y])
             imgList.append(row)
@@ -75,9 +74,9 @@ class SimpleImage:
     def interpolacao_bilinear_reducao(self) -> None:
 
         imgList = []
-        for y in range(0, self.width - 1,2):
+        for y in range(0, self.heigth - 1,2):
             row = []
-            for x in range(0, self.heigth - 1, 2):
+            for x in range(0, self.width - 1, 2):
                 row.append(self.calcular_rgb_media(
                     self.pixel_data[x,y],
                     self.pixel_data[x,y+1],
@@ -94,10 +93,10 @@ class SimpleImage:
     def interpolacao_bilinear_ampliacao(self) -> None:
 
         imgList = []
-        for y in range(self.width):
+        for y in range(self.heigth):
             row = []
             middleRow=[]
-            for x in range(self.heigth):
+            for x in range(self.width):
                 if x == self.width-1 or y == self.heigth-1:
                     row.append(self.pixel_data[x, y])
                     row.append(self.pixel_data[x, y])
