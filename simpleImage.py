@@ -1,5 +1,6 @@
 from PIL import Image
 import numpy as np
+from numpy.lib.type_check import imag
 
 class SimpleImage:
 
