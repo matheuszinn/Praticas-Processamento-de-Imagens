@@ -1,5 +1,6 @@
 from PIL import Image
 import numpy as np
+from numpy.lib.type_check import imag
 
 class SimpleImage:
 
@@ -90,4 +91,45 @@ class SimpleImage:
         self.save_file('BilinearRedução', newImage)
 
     def interpolacao_bilinear_ampliacao(self) -> None:
-        pass
+        
+        def calcular_rgb_media(*val: tuple, division: int) -> list:
+            r,g,b,a = 0,0,0,0
+            for pixel in val:
+                r += pixel[0]
+                g += pixel[1]
+                b += pixel[2]
+                a += pixel[3]
+
+            return [i//division for i in [r,g,b,a]]
+
+        imgList = []
+        for y in range(self.width):
+            row = []
+            for x in range(self.heigth):
+                if y % 2 == 0:
+                    row.append(self.pixel_data[x, y])
+                    row.append(calcular_rgb_media( 
+                        self.pixel_data[x, y],
+                        self.pixel_data[x, y+1],
+                        division = 2
+                    ))
+                else:
+                    row.append(calcular_rgb_media(
+                        self.pixel_data[x-1, y],
+                        self.pixel_data[x, y],
+                        division = 2
+                    ))
+                    row.append(calcular_rgb_media(
+                        self.pixel_data[x, y],
+                        self.pixel_data[x-1, y],
+                        self.pixel_data[x, y-1],
+                        self.pixel_data[x-1, y-1],
+                        division = 4
+                    ))
+                
+            imgList.append(row)
+        
+        data = np.array(imgList, dtype=np.uint8)
+        newImage = Image.fromarray(data)
+        newImage.show()
+        self.save_file('BilinearAmpliação', newImage)
