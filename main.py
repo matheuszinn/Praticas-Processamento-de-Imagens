@@ -44,7 +44,7 @@ questions = [
 if __name__ == "__main__":
     results = prompt(questions)
 
-    image = SimpleImage('nerd.png', save_f=results['save'])
+    image = SimpleImage('amogus.png', save_f=results['save'])
     handler = MethodHandler(image)
 
     if 'Transformar em cinza' in results.values():
