@@ -35,6 +35,11 @@ questions = [
         'when': lambda ans: 'Interpolação' in ans.values()
     },
     {
+        'type': 'input',
+        'name': 'imgPath',
+        'message': 'Entre com o nome do arquivo de imagem: '
+    },
+    {
         'type': 'confirm',
         'name': 'save',
         'message': "Você deseja salvar a imagem resultante ?"
@@ -44,7 +49,8 @@ questions = [
 if __name__ == "__main__":
     results = prompt(questions)
 
-    image = SimpleImage('amogus.png', save_f=results['save'])
+    image = SimpleImage(results['imgPath'], save_f=results['save'])
+    print(image.mode)
     handler = MethodHandler(image)
 
     if 'Transformar em cinza' in results.values():

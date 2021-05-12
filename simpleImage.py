@@ -11,6 +11,7 @@ class SimpleImage:
         self.width = self.image.width
         self.heigth = self.image.height
         self.save_f = save_f
+        self.mode = self.image.mode
 
     def save_file(self,name: str ,image) -> None:
         if self.save_f:
@@ -19,7 +20,7 @@ class SimpleImage:
     def in_grayscale(self) -> None:
 
         def set_grayscale(values: tuple) -> list:
-            mean = (sum(values) - values[3]) // 3
+            mean = (sum(values) - values[1]) // 3
             return [mean, mean, mean, values[3]]
 
         temp = []
@@ -62,14 +63,21 @@ class SimpleImage:
         self.save_file('VizinhosAmpliação', newImage)
 
     def calcular_rgb_media(self, *val: tuple) -> list:
-            r,g,b,a = 0,0,0,0
-            for pixel in val:
-                r += pixel[0]
-                g += pixel[1]
-                b += pixel[2]
-                a += pixel[3]
+        
+        r,g,b,a = 0,0,0,0
+        for pixel in val:
+            r += pixel[0]
+            g += pixel[1]
+            b += pixel[2]
             
+        if self.mode == "RGBA":
+            a = sum([ x[3] for x in val])
             return [i//len(val) for i in [r,g,b,a]]
+        
+            
+        return [i//len(val) for i in [r,g,b]]
+
+        
 
     def interpolacao_bilinear_reducao(self) -> None:
 

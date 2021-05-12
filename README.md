@@ -28,20 +28,14 @@ Está sendo feito em python, usando as libs que estão em ```requirements.txt```
 - [X] Interpolação
   - [X] Por vizinhos próximos (Aumento e diminuição)
   - [X] Bilinear (Aumento e diminuição)
-- [ ] Duas operações aritméticas:
-  - Adição
-  - Subtração
-  - Multiplicação
-  - Divisão
-- [ ] Uma operação geométrica:
-  - Rotação
-  - Translação
-  - Espelhamento
-  - Reflexão
-- [ ] Implementar uma dessas funções de transformação de intensidade:
-  - Negativa
-  - Logarítmica
-  - Potência 
+- [ ] Operações aritméticas:
+  - [ ] Adição
+  - [ ] Subtração
+- [ ] Operação geométrica:
+  - [ ] Espelhamento/Reflexão
+- [ ] Funções de transformação de intensidade:
+  - [ ] Negativa
+
 
   
 
