@@ -1,7 +1,6 @@
 from methodhandler import MethodHandler
 from PyInquirer import prompt
 from PyInquirer.separator import Separator
-from numpy.lib.npyio import save
 from simpleImage import SimpleImage
 
 questions = [
