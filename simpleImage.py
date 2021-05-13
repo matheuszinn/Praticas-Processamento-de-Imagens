@@ -20,15 +20,15 @@ class SimpleImage:
     def in_grayscale(self) -> None:
 
         def set_grayscale(values: tuple) -> list:
-            mean = (sum(values) - values[1]) // 3
-            return [mean, mean, mean, values[3]]
+            mean = sum(values) // 3 
+            return [mean, mean, mean] if self.mode == "RGB" else [mean, mean, mean, values[3]] 
 
         temp = []
         for rows in self.data:
-            column_list = []
-            for column in rows:
-                column_list.append(set_grayscale(column))
-            temp.append(column_list)
+            pixel_list = []
+            for pixel in rows:
+                pixel_list.append(set_grayscale(pixel))
+            temp.append(pixel_list)
         
         data = np.array(temp, dtype=np.uint8)
         newImage = Image.fromarray(data)
@@ -72,12 +72,9 @@ class SimpleImage:
             
         if self.mode == "RGBA":
             a = sum([ x[3] for x in val])
-            return [i//len(val) for i in [r,g,b,a]]
-        
-            
-        return [i//len(val) for i in [r,g,b]]
-
-        
+            return [i//len(val) for i in [r,g,b,a]]   
+             
+        return [i//len(val) for i in [r,g,b]]      
 
     def interpolacao_bilinear_reducao(self) -> None:
 
