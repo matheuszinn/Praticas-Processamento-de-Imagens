@@ -50,7 +50,6 @@ if __name__ == "__main__":
     results = prompt(questions)
 
     image = SimpleImage(results['imgPath'], save_f=results['save'])
-    print(image.mode)
     handler = MethodHandler(image)
 
     if 'Transformar em cinza' in results.values():

@@ -1,7 +1,5 @@
 from simpleImage import SimpleImage
 
-# Classe para registrar os métodos novos, e fazer o prompt funcionar
-
 class MethodHandler:
 
     def __init__(self, image: SimpleImage) -> None:
