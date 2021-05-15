@@ -35,7 +35,7 @@ Está sendo feito em python, usando as libs que estão em ```requirements.txt```
   - [ ] Espelhamento/Reflexão
 - [ ] Funções de transformação de intensidade:
   - [ ] Negativa
-
+  - [ ] Equalização do histograma normalizado
 
   
 
