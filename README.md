@@ -31,10 +31,10 @@ Está sendo feito em python, usando as libs que estão em ```requirements.txt```
 - [ ] Operações aritméticas:
   - [ ] Adição
   - [ ] Subtração
-- [ ] Operação geométrica:
-  - [ ] Espelhamento/Reflexão
+- [X] Operação geométrica:
+  - [X] Espelhamento/Reflexão
 - [ ] Funções de transformação de intensidade:
-  - [ ] Negativa
+  - [X] Negativa
   - [ ] Equalização do histograma normalizado
 
   
