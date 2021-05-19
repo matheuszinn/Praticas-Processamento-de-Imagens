@@ -223,7 +223,23 @@ class SimpleImage:
         newImage = Image.fromarray(data)
         newImage.show()
         self.save_file('Adição', newImage)
-        
 
-    def subtracao(self, second) -> None:
-        pass
+    def subtracao(self, second: 'SimpleImage') -> None:
+
+        def calcular_rgb(pixel1: tuple, pixel2: tuple) -> tuple:
+            r = abs(pixel1[0] - pixel2[0])
+            g = abs(pixel1[1] - pixel2[1])
+            b = abs(pixel1[2] - pixel2[2])    
+            return (r, g, b)
+        
+        imgList = []
+        for y in range(self.heigth):
+            row = []
+            for x in range(self.width):
+                row.append(calcular_rgb(self.pixel_data[x, y], second.pixel_data[x, y]))
+            imgList.append(row)
+
+        data = np.array(imgList, dtype=np.uint8)
+        newImage = Image.fromarray(data)
+        newImage.show()
+        self.save_file('Subtração', newImage)
