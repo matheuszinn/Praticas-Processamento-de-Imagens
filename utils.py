@@ -14,6 +14,7 @@ QUESTIONS = [
         'message': 'O que deseja fazer com a imagem ?',
         'choices': [
             'Interpolação',
+            'Operação aritmética',
             'Reflexão/Espelhamento',
             'Transformar em cinza',
             'Transformar em negativo'
@@ -42,6 +43,16 @@ QUESTIONS = [
             'Redução por Bilinear'
         ],
         'when': lambda x: x['operation'] == 'Interpolação'
+    },
+    {
+        'type': 'list',
+        'name': 'opt',
+        'message': 'Qual operação aritmética deseja realizar?',
+        'choices': [
+            'Adição',
+            'Subtração'
+        ],
+        'when': lambda x: x['operation'] == 'Operação aritmética'
     },
     
     {

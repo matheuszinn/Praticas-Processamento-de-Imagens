@@ -204,3 +204,12 @@ class SimpleImage:
 
         newImage.show()
         self.save_file("Negativo",newImage)
+
+    def aritmetica(self, type: str) -> None:
+        self.adicao() if 'Adição' in type else self.subtracao()
+    
+    def adicao(self) -> None:
+        pass
+
+    def subtracao(self) -> None:
+        pass
