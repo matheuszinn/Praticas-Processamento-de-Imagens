@@ -1,6 +1,5 @@
 from simpleImage import SimpleImage
 
-
 class MethodHandler:
 
     def __init__(self, image: SimpleImage) -> None:
@@ -9,7 +8,8 @@ class MethodHandler:
             "Interpolação": image.interpolação,
             "Transformar em cinza": image.in_grayscale,
             "Reflexão/Espelhamento": image.reflexão_espelhamento,
-            "Transformar em negativo": image.negativo
+            "Transformar em negativo": image.negativo,
+            "Operação aritmética": image.aritmetica
         }
 
     def execute(self, options: dict) -> None:
