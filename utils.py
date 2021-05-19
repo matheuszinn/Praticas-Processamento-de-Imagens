@@ -66,3 +66,11 @@ QUESTIONS = [
         'message': "Você deseja salvar a imagem resultante ?"
     }
 ]
+
+IMPORTER = [
+    {
+        'type': 'input',
+        'name': 'imgPath',
+        'message': 'Entre com o nome do arquivo de imagem: '
+    }
+]

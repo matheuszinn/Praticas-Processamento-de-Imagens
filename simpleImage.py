@@ -1,6 +1,7 @@
 import numpy as np
 from PIL import Image
-from utils import MAT_ESP, MAT_REF, MAT_TESTE
+from PyInquirer import prompt
+from utils import MAT_ESP, MAT_REF, MAT_TESTE, IMPORTER
 
 
 class SimpleImage:
@@ -191,7 +192,7 @@ class SimpleImage:
                 return tuple(val)
             else:
                 val[3] = pixel[3]
-                print(val)
+                #print(val)
                 return tuple(val)
 
         newImage = Image.new(self.mode, self.image.size)
@@ -206,10 +207,23 @@ class SimpleImage:
         self.save_file("Negativo",newImage)
 
     def aritmetica(self, type: str) -> None:
-        self.adicao() if 'Adição' in type else self.subtracao()
-    
-    def adicao(self) -> None:
-        pass
+        results = prompt(IMPORTER)
+        img_2 = SimpleImage(results['imgPath'], False)
+        self.adicao(img_2) if 'Adição' in type else self.subtracao(img_2)
 
-    def subtracao(self) -> None:
+    def adicao(self, second: 'SimpleImage') -> None:
+        imgList = []
+        for y in range(self.heigth):
+            row = []
+            for x in range(self.width):
+                row.append(self.calcular_rgb_media(self.pixel_data[x, y], second.pixel_data[x, y]))
+            imgList.append(row)
+
+        data = np.array(imgList, dtype=np.uint8)
+        newImage = Image.fromarray(data)
+        newImage.show()
+        self.save_file('Adição', newImage)
+        
+
+    def subtracao(self, second) -> None:
         pass
