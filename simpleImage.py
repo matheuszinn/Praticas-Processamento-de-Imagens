@@ -47,7 +47,7 @@ class SimpleImage:
             if 'Ampliação' in type:
                 self.interpolacao_vizinhos_ampliacao()
             else:
-                self.interpolacao_vizinhos_reducao
+                self.interpolacao_vizinhos_reducao()
         elif 'Bilinear' in type:
             if 'Ampliação' in type:
                 self.interpolacao_bilinear_ampliacao()
@@ -190,7 +190,8 @@ class SimpleImage:
             if self.mode == "RGB":
                 return tuple(val)
             else:
-                val.append(pixel[3])
+                val[3] = pixel[3]
+                print(val)
                 return tuple(val)
 
         newImage = Image.new(self.mode, self.image.size)
