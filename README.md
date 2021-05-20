@@ -28,9 +28,9 @@ Está sendo feito em python, usando as libs que estão em ```requirements.txt```
 - [X] Interpolação
   - [X] Por vizinhos próximos (Aumento e diminuição)
   - [X] Bilinear (Aumento e diminuição)
-- [ ] Operações aritméticas:
-  - [ ] Adição
-  - [ ] Subtração
+- [X] Operações aritméticas:
+  - [X] Adição
+  - [X] Subtração
 - [X] Operação geométrica:
   - [X] Espelhamento/Reflexão
 - [ ] Funções de transformação de intensidade:
