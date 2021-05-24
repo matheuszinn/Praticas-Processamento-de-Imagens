@@ -21,21 +21,9 @@ QUESTIONS = [
         'choices': [
             'Interpolação',
             'Operação aritmética',
-            'Reflexão/Espelhamento',
-            'Transformar em negativo',
-            'Equalizar histograma normalizado',
+            'Operação geométrica',
+            'Transformação de intensidade'
         ]
-    },
-    {
-        'type': 'list',
-        'name': 'opt',
-        'message': 'Escolha entre as opções.',
-        'choices': [
-            'Espelhamento',
-            'Reflexão',
-            'Espelhamento e Reflexão'
-        ],
-        'when': lambda x: x['operation'] == 'Reflexão/Espelhamento'
     },
     {
         'type': 'list',
@@ -60,11 +48,29 @@ QUESTIONS = [
         ],
         'when': lambda x: x['operation'] == 'Operação aritmética'
     },
-    # {
-    #     'type': 'input',
-    #     'name': 'imgPath',
-    #     'message': 'Entre com o nome do arquivo de imagem: '
-    # }
+    {
+        'type': 'list',
+        'name': 'opt',
+        'message': 'Qual operação geométrica deseja realizar?',
+        'choices': [
+            'Espelhamento',
+            'Reflexão',
+            'Espelhamento e Reflexão'
+        ],
+        'when': lambda x: x['operation'] == 'Operação geométrica'
+    },
+    {
+        'type': 'list',
+        'name': 'opt',
+        'message': 'Escolha a transformação de intensidade.',
+        'choices': [
+            'Transformar em cinza',
+            'Transformar em negativo',
+            'Equalização do histograma normalizado'
+        ],
+        'when': lambda x: x['operation'] == 'Transformação de intensidade'
+    },
+    
     {
         'type': 'list',
         'name': 'imgPath',
@@ -75,7 +81,7 @@ QUESTIONS = [
         'type': 'confirm',
         'name': 'save',
         'message': "Você deseja salvar a imagem resultante ?"
-    }
+    },
 ]
 
 IMPORTER = [

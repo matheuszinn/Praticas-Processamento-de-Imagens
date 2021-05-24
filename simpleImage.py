@@ -30,8 +30,10 @@ class SimpleImage:
         if self.save_f:
             image.save(f'{OUT_FOLDER}{name}_{self.imgName}')
 
-    def in_grayscale(self) -> Image:
-        return self.image.convert('L')
+    def in_grayscale(self):
+        img = self.image.convert('L')
+        self.save_file("Grayscale", img)
+        return img
 
     def interpolação(self, type: str) -> None:
         if 'Vizinho' in type:
@@ -301,9 +303,15 @@ class SimpleImage:
                             hspace=0.4)
 
         plt.show()
-        g_img.show()
-        newImage.show()
 
-        if self.save_file:
+        if self.save_f:
             fig.savefig(f"{OUT_FOLDER}Histogramas_{self.imgName}")
         self.save_file("Imagem_Equalizada", newImage)
+
+    def intensidade(self, type: str) -> None:
+        if type == 'Transformar em cinza':
+            self.in_grayscale()
+        elif type == 'Transformar em negativo':
+            self.negativo()
+        else:
+            self.histograma()
