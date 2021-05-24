@@ -303,6 +303,8 @@ class SimpleImage:
                             hspace=0.4)
 
         plt.show()
+        
+        newImage.show()
 
         if self.save_f:
             fig.savefig(f"{OUT_FOLDER}Histogramas_{self.imgName}")
