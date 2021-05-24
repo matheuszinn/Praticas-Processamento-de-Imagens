@@ -9,7 +9,7 @@ from decimal import Decimal
 
 # TODO: Transformar isso aqui em várias classes 
 
-IMG_FOLDER = "./images/"
+IMG_FOLDER = ""
 OUT_FOLDER = "./out/"
 
 
@@ -303,7 +303,7 @@ class SimpleImage:
                             hspace=0.4)
 
         plt.show()
-        
+
         newImage.show()
 
         if self.save_f:
@@ -312,7 +312,9 @@ class SimpleImage:
 
     def intensidade(self, type: str) -> None:
         if type == 'Transformar em cinza':
-            self.in_grayscale()
+            gray = self.in_grayscale()
+            gray.show()
+            self.save_file('Gray', gray)
         elif type == 'Transformar em negativo':
             self.negativo()
         else:
