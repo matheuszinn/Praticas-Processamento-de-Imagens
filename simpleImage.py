@@ -19,12 +19,11 @@ class SimpleImage:
 
     def save_file(self, name: str, image) -> None:
         if self.save_f:
-            image.save(f'{name}_{self.imgPath}')
+            image.save(f'out/{name}_{self.imgPath[7:]}')
 
     def in_grayscale(self) -> None:
 
         def set_grayscale(values: tuple) -> list:
-
             if self.mode == "RGB":
                 mean = sum(values) // 3
                 return [mean, mean, mean]
@@ -255,4 +254,5 @@ class SimpleImage:
             self.histograma()
 
     def histograma(self) -> None:
+        self.in_grayscale()
         pass
