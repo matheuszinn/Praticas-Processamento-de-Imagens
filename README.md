@@ -33,11 +33,27 @@ Está sendo feito em python, usando as libs que estão em ```requirements.txt```
   - [X] Subtração
 - [X] Operação geométrica:
   - [X] Espelhamento/Reflexão
-- [ ] Funções de transformação de intensidade:
+- [X] Funções de transformação de intensidade:
   - [X] Negativa
-  - [ ] Equalização do histograma normalizado
+  - [X] Equalização do histograma normalizado
+- O futuro é incerto
 
+
+## Exemplo 
+
+  Ao se escolher as opções ```Reflexão/Espelhamento -> Espelhamento -> eu.jpg``` (achada na internet)``` -> Y``` com a imagem ```eu.jpg```, se tem o seguinte resultado: 
+
+|  Entrada       |     Saída       | 
+| ------------- |:-------------:|
+| ![achada na internet](./images/eu.jpg)      | ![](./out/Espelhamento_eu.jpg) |
+
+O resultado aparece na tela, e no caso de ser selecionada a opção de salvar, ela é salva na pasta ```/out```
   
 
+Coisas para talvez fazer no futuro:
+  - Dividir a classe SimpleImage em classes menores
+  - Implementar uma GUI
+  - Permitir que sejam executadas várias operações em uma só execução do programa.
+  - Logar de algum jeito as informações das imagens
 
-Sendo feito por matheuszinn e thaís apenas.
+Sendo feito por [matheuszinn](www.twitter.com/matheuszeen) e [thaís](https://twitter.com/thaisclxt) apenas.
