@@ -6,10 +6,9 @@ class MethodHandler:
 
         self.metodos = {
             "Interpolação": image.interpolação,
-            "Transformar em cinza": image.in_grayscale,
-            "Reflexão/Espelhamento": image.reflexão_espelhamento,
-            "Transformar em negativo": image.negativo,
-            "Operação aritmética": image.aritmetica
+            "Operação aritmética": image.aritmetica,
+            "Operação geométrica": image.reflexão_espelhamento,
+            "Transformação de intensidade": image.intensidade
         }
 
     def execute(self, options: dict) -> None:

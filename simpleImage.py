@@ -245,3 +245,14 @@ class SimpleImage:
         newImage = Image.fromarray(data)
         newImage.show()
         self.save_file('Subtração', newImage)
+
+    def intensidade(self, type: str) -> None:
+        if type == 'Transformar em cinza':
+            self.in_grayscale()
+        elif type == 'Transformar em negativo':
+            self.negativo()
+        else:
+            self.histograma()
+
+    def histograma(self) -> None:
+        pass

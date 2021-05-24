@@ -15,21 +15,9 @@ QUESTIONS = [
         'choices': [
             'Interpolação',
             'Operação aritmética',
-            'Reflexão/Espelhamento',
-            'Transformar em cinza',
-            'Transformar em negativo'
+            'Operação geométrica',
+            'Transformação de intensidade'
         ]
-    },
-    {
-        'type': 'list',
-        'name': 'opt',
-        'message': 'Escolha entre as opções.',
-        'choices': [
-            'Espelhamento',
-            'Reflexão',
-            'Espelhamento e Reflexão'
-        ],
-        'when': lambda x: x['operation'] == 'Reflexão/Espelhamento'
     },
     {
         'type': 'list',
@@ -53,6 +41,28 @@ QUESTIONS = [
             'Subtração'
         ],
         'when': lambda x: x['operation'] == 'Operação aritmética'
+    },
+    {
+        'type': 'list',
+        'name': 'opt',
+        'message': 'Qual operação ageométrica deseja realizar?',
+        'choices': [
+            'Espelhamento',
+            'Reflexão',
+            'Espelhamento e Reflexão'
+        ],
+        'when': lambda x: x['operation'] == 'Operação geométrica'
+    },
+    {
+        'type': 'list',
+        'name': 'opt',
+        'message': 'Escolha a transformação de intensidade.',
+        'choices': [
+            'Transformar em cinza',
+            'Transformar em negativo',
+            'Equalização do histograma normalizado'
+        ],
+        'when': lambda x: x['operation'] == 'Transformação de intensidade'
     },
     
     {
