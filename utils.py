@@ -1,9 +1,15 @@
 from PyInquirer.separator import Separator
+import os
+import glob
 
 # Constants that represent transformation matrices
 MAT_ESP = ([-1, 0, 0], [0, 1, 0], [0, 0, 1])
 MAT_REF = ([1, 0, 0], [0, -1, 0], [0, 0, 1])
 MAT_TESTE = ([-1, 0, 0], [0, -1, 0], [0, 0, 1])
+
+
+def get_fileNames() -> list:
+    return [x.split("/")[-1] for x in glob.glob(os.getcwd() + r"/images/*")]
 
 
 # Hold the questions asked by pyinquirer
@@ -16,8 +22,8 @@ QUESTIONS = [
             'Interpolação',
             'Operação aritmética',
             'Reflexão/Espelhamento',
-            'Transformar em cinza',
-            'Transformar em negativo'
+            'Transformar em negativo',
+            'Equalizar histograma normalizado',
         ]
     },
     {
@@ -54,11 +60,16 @@ QUESTIONS = [
         ],
         'when': lambda x: x['operation'] == 'Operação aritmética'
     },
-    
+    # {
+    #     'type': 'input',
+    #     'name': 'imgPath',
+    #     'message': 'Entre com o nome do arquivo de imagem: '
+    # }
     {
-        'type': 'input',
+        'type': 'list',
         'name': 'imgPath',
-        'message': 'Entre com o nome do arquivo de imagem: '
+        'message': 'Escolha a imagem a ser utilizada:',
+        'choices': get_fileNames(),
     },
     {
         'type': 'confirm',

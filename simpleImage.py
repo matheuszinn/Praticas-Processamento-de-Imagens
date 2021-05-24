@@ -1,14 +1,23 @@
+from os import strerror
+from typing import Union
 import numpy as np
 from PIL import Image
 from PyInquirer import prompt
 from utils import MAT_ESP, MAT_REF, MAT_TESTE, IMPORTER
+import matplotlib.pyplot as plt
+from decimal import Decimal
 
-#TODO: Transformar isso aqui em várias classes 
+# TODO: Transformar isso aqui em várias classes 
+
+IMG_FOLDER = "./images/"
+OUT_FOLDER = "./out/"
+
 
 class SimpleImage:
 
-    def __init__(self, imgPath: str, save_f: bool = False) -> None:
-        self.imgPath = imgPath
+    def __init__(self, imgName: str, save_f: bool = False) -> None:
+        self.imgName = imgName
+        self.imgPath = IMG_FOLDER + imgName
         self.image = Image.open(self.imgPath)
         self.pixel_data = self.image.load()
         self.data = np.asarray(self.image)
@@ -19,30 +28,10 @@ class SimpleImage:
 
     def save_file(self, name: str, image) -> None:
         if self.save_f:
-            image.save(f'{name}_{self.imgPath}')
+            image.save(f'{OUT_FOLDER}{name}_{self.imgName}')
 
-    def in_grayscale(self) -> None:
-
-        def set_grayscale(values: tuple) -> list:
-
-            if self.mode == "RGB":
-                mean = sum(values) // 3
-                return [mean, mean, mean]
-            else:
-                mean = (sum(values) - values[3]) // 3
-                return [mean, mean, mean, values[3]]
-
-        temp = []
-        for rows in self.data:
-            pixel_list = []
-            for pixel in rows:
-                pixel_list.append(set_grayscale(pixel))
-            temp.append(pixel_list)
-
-        data = np.array(temp, dtype=np.uint8)
-        newImage = Image.fromarray(data)
-        newImage.show()
-        self.save_file(f"Gray", newImage)
+    def in_grayscale(self) -> Image:
+        return self.image.convert('L')
 
     def interpolação(self, type: str) -> None:
         if 'Vizinho' in type:
@@ -245,3 +234,76 @@ class SimpleImage:
         newImage = Image.fromarray(data)
         newImage.show()
         self.save_file('Subtração', newImage)
+
+    def histograma(self) -> None:
+
+        #No momento só funciona com imagens em grayscale, por isso a conversão parar grayscale
+        #TODO: Fazer esse método ficar menos burro e funcionando pelo menos com RGB, morra canal alpha maldito
+
+        g_img = self.in_grayscale()
+        number_of_pixels = self.width * self.heigth
+
+        newImage = Image.new(g_img.mode, g_img.size)
+        newImage_pixels = newImage.load()
+
+        hist = g_img.histogram()
+        norm_hist = [Decimal.from_float(x / number_of_pixels) for x in hist]
+    
+        hist_equal = []
+        count = 0
+        for i in range(0, len(hist)):
+            count = count + len(hist) * norm_hist[i]
+            hist_equal.append(count)
+
+        vals_table = [min(round(x), 255) for x in hist_equal]
+        look_up_table = dict(zip([x for x in range(0, len(hist))], vals_table))
+
+        for y in range(newImage.height):
+            for x in range(newImage.width):
+                newImage_pixels[x, y] = look_up_table[g_img.getpixel((x, y))]
+
+        newImage_hist = newImage.histogram()
+
+        fig, axes = plt.subplots(nrows=2, ncols=2)
+
+        for i in range(len(hist)):
+            axes[0, 0].set_title("Histograma da imagem")
+            axes[0, 0].bar(i, hist[i], color="#000000", edgecolor="#000000")
+
+        for i in range(len(hist)):
+            axes[0, 1].set_title("Histograma normalizado")
+            axes[0, 1].bar(i, norm_hist[i], color="#000000",
+                           edgecolor="#000000")
+            axes[0, 1].set_ylim(0, .1)
+
+        hist_acum = []
+        count = 0
+        for i in range(0, len(norm_hist)):
+            count += norm_hist[i]
+            hist_acum.append(count)
+
+        for i in range(len(hist)):
+            axes[1, 0].set_title("Histograma normalizado c/ acúmulo")
+            axes[1, 0].bar(i, norm_hist[i], color="#000000",
+                           edgecolor="#000000")
+            axes[1, 0].plot(hist_acum)
+
+        for i in range(len(newImage_hist)):
+            axes[1, 1].set_title('Histograma Equalizado')
+            axes[1, 1].bar(i, newImage_hist[i],
+                           color="#000000", edgecolor="#000000")
+
+        plt.subplots_adjust(left=0.1,
+                            bottom=0.1,
+                            right=0.9,
+                            top=0.9,
+                            wspace=0.4,
+                            hspace=0.4)
+
+        plt.show()
+        g_img.show()
+        newImage.show()
+
+        if self.save_file:
+            fig.savefig(f"{OUT_FOLDER}Histogramas_{self.imgName}")
+        self.save_file("Imagem_Equalizada", newImage)
