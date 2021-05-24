@@ -5,19 +5,20 @@ Está sendo feito em python, usando as libs que estão em ```requirements.txt```
 #### Passos para rodar a aplicação
 
 1. Clonar o repositório
+
 2. Criar um virtualenv no diretório clonado com :
   
-      ```python -m venv venv```
+    ```python -m venv venv```
 
-      Depois ativar o virtualenv, acho que é assim no windows:
+      Depois ativar o virtualenv no windows:
 
-      ```venv\Scripts\activate.bat``` (ou algo similar, realmente não sei como fazer isso no windows)
+      ```venv\Scripts\activate.bat```
 
-3. Instalar as dependências no ```requirements.txt```:
-
-    (Eu acho que tem que atualizar o pip)
+3. Atualizar o pip:
 
     ```python -m pip install --upgrade pip```
+
+4. Instalar as dependências no ```requirements.txt```:
 
     ```pip install -r requirements.txt```
 
