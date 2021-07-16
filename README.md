@@ -58,3 +58,6 @@ Coisas para talvez fazer no futuro:
   - Logar de algum jeito as informações das imagens
 
 Sendo feito por [matheuszinn](www.twitter.com/matheuszeen) e [thaís](https://twitter.com/thaisclxt) apenas.
+
+
+A disciplina acabou, triste
