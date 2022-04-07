@@ -13,6 +13,7 @@ Está sendo feito em python, usando as libs que estão em ```requirements.txt```
       Depois ativar o virtualenv no windows:
 
       ```venv\Scripts\activate.bat```
+      ```venv\Scripts\activate.ps1```
 
 3. Atualizar o pip:
 
